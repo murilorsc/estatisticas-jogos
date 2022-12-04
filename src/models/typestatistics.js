@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class TypeStatistics extends Model {
 
     static associate(models) {
-      TypeStatistics.hasMany(models.Statistics, { foreignKey: 'typeId' });
+      TypeStatistics.hasMany(models.Statistics, { foreignKey: 'type_id' });
     }
   }
   TypeStatistics.init({

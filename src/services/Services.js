@@ -6,13 +6,13 @@ class Services {
         this.model = model;
     }
 
-    async createRecord(data = {}, transaction = {}) {
-        return db[this.model].create(dados, transaction);
+    async findAllRecords(order = []) {
+        return db[this.model].findAll({ order: [order] });
     };
 
-    // async buscaTodosRegistros(order = []) {
-    //     return db[this.model].findAll({ order: [order] });
-    // };
+    async createRecord(conditions = {}) {
+        return db[this.model].findOrCreate(conditions);
+    };
 
     // async buscaRegistroPorId(id) {
     //     return db[this.model].findByPk(id);

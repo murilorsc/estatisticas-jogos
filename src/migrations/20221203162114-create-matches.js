@@ -9,42 +9,42 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      eventDate: {
+      event_date: {
         type: Sequelize.DATEONLY
       },
-      eventTime: {
+      event_time: {
         type: Sequelize.TIME
       },
-      eventHomeTeam: {
+      event_home_team: {
         type: Sequelize.STRING
       },
-      eventAwayTeam: {
+      event_away_team: {
         type: Sequelize.STRING
       },
-      eventhalftimeResult: {
+      event_halftime_result: {
         type: Sequelize.STRING
       },
-      eventFinalResult: {
+      event_final_result: {
         type: Sequelize.STRING
       },
-      eventFtResult: {
+      event_ft_result: {
         type: Sequelize.STRING
       },
-      eventPenaltyResult: {
+      event_penalty_result: {
         type: Sequelize.STRING
       },
-      eventStatus: {
+      event_status: {
         type: Sequelize.STRING
       },
       eventCountryKey: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Countries', key: 'countryKey' }
+        references: { model: 'Countries', key: 'country_key' }
       },
       leagueKey: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Leagues', key: 'leagueKey' }
+        references: { model: 'Leagues', key: 'league_key' }
       },
       leagueRound: {
         type: Sequelize.STRING

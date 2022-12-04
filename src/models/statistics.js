@@ -5,13 +5,13 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Statistics extends Model {
     static associate(models) {
-      Statistics.belongsTo(models.Matches, { foreignKey: 'matchiId' });
-      Statistics.belongsTo(models.TypeStatistics, { foreignKey: 'typeId' });
+      Statistics.belongsTo(models.Matches, { foreignKey: 'match_id' });
+      Statistics.belongsTo(models.TypeStatistics, { foreignKey: 'type_id' });
     }
   }
   Statistics.init({
-    typeId: DataTypes.INTEGER,
-    matchiId: DataTypes.INTEGER,
+    type_id: DataTypes.INTEGER,
+    match_id: DataTypes.INTEGER,
     home: DataTypes.INTEGER,
     away: DataTypes.INTEGER
   }, {

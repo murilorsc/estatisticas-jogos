@@ -9,22 +9,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      leagueKey: {
+      league_key: {
         type: Sequelize.INTEGER,
         unique: true
       },
-      leagueName: {
+      league_name: {
         type: Sequelize.STRING
       },
-      countryKey: {
+      country_key: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: 'Countries', key: 'countryKey' }
+        references: { model: 'Countries', key: 'country_key' }
       },
-      leagueLogo: {
+      league_logo: {
         type: Sequelize.STRING
       },
-      countryLogo: {
+      country_logo: {
         type: Sequelize.STRING
       },
       createdAt: {

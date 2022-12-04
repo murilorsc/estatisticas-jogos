@@ -9,17 +9,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      countryKey: {
+      country_key: {
         type: Sequelize.INTEGER,
         unique: true
       },
-      countryName: {
+      country_name: {
         type: Sequelize.STRING
       },
-      countryIso: {
+      country_iso2: {
         type: Sequelize.STRING
       },
-      countryLogo: {
+      country_logo: {
         type: Sequelize.STRING
       },
       createdAt: {
