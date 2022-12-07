@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Statistics', {
+    await queryInterface.createTable('Goalscorers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,14 +14,29 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Matches', key: 'id' }
       },
-      type: {
+      time: {
         type: Sequelize.STRING
       },
-      home: {
-        type: Sequelize.INTEGER
+      home_scorer: {
+        type: Sequelize.STRING
       },
-      away: {
-        type: Sequelize.INTEGER
+      home_assist: {
+        type: Sequelize.STRING
+      },
+      score: {
+        type: Sequelize.STRING
+      },
+      away_scorer: {
+        type: Sequelize.STRING
+      },
+      away_assist: {
+        type: Sequelize.STRING
+      },
+      info: {
+        type: Sequelize.STRING
+      },
+      info_time: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -30,14 +45,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      deletedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Statistics');
+    await queryInterface.dropTable('Goalscorers');
   }
 };

@@ -5,6 +5,5 @@ const router = Router();
 
 router
     .get('/country', CountryController.findAllCountries)
-    .get('/country/:name', CountryController.findCountryByName)
-    .get('/country/news/countries', CountryController.loadNewsCountries);
+    .get('/country/:name', CountryController.findCountryByName);
 module.exports = router;

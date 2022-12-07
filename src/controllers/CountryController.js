@@ -1,27 +1,29 @@
 const { CountriesServices } = require('../services/');
-const countryApi = require('../api/countryApi.js');
-const { json } = require('sequelize');
+const allSportsApi = require('../api/allSportsApi.js');
 const countriesServices = new CountriesServices();
 
 class CountryController {
 
     static async loadNewsCountries(req, res) {
         try {
-            const allCountries = await countryApi.load();
+            const met = 'Countries';
+            const allCountries = await allSportsApi.load(met);
 
-            for (let index = 0; index < allCountries.data.length; index++) {
+            for (const country of allCountries.data) {
                 const conditions = {
-                    where: { country_name: allCountries.data[index].country_name },
+                    where: { country_name: country.country_name },
                     defaults: {
-                        country_key: allCountries.data[index].country_key,
-                        country_iso2: allCountries.data[index].country_iso2,
-                        country_logo: allCountries.data[index].country_logo
+                        country_key: country.country_key,
+                        country_name: country.country_name,
+                        country_iso2: country.country_iso2,
+                        country_logo: country.country_logo
                     }
+
                 };
-                countriesServices.createRecord(conditions);//allCountries.data[index]);
+                countriesServices.createRecord(conditions);
             }
 
-            return res.status(201).json(allCountries);
+            return;
 
         } catch (error) {
             return res.status(500).json(error.message);

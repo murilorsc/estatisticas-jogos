@@ -5,8 +5,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Countries extends Model {
     static associate(models) {
-      Countries.hasMany(models.Leagues, { sourceKey: 'country_key', foreignKey: 'country_key' });
-      Countries.hasMany(models.Matches, { sourceKey: 'country_key', foreignKey: 'event_country_key' });
     }
   }
   Countries.init({

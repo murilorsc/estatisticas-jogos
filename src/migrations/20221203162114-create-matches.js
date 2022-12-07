@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      event_key: {
+        type: Sequelize.INTEGER
+      },
       event_date: {
         type: Sequelize.DATEONLY
       },
@@ -36,32 +39,28 @@ module.exports = {
       event_status: {
         type: Sequelize.STRING
       },
-      eventCountryKey: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: 'Countries', key: 'country_key' }
+      event_country_key: {
+        type: Sequelize.INTEGER
       },
-      leagueKey: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: 'Leagues', key: 'league_key' }
+      league_key: {
+        type: Sequelize.INTEGER
       },
-      leagueRound: {
+      league_round: {
         type: Sequelize.STRING
       },
-      leagueSeason: {
+      league_season: {
         type: Sequelize.STRING
       },
-      eventStadium: {
+      event_stadium: {
         type: Sequelize.STRING
       },
-      eventReferee: {
+      event_referee: {
         type: Sequelize.STRING
       },
-      eventHomeFormation: {
+      event_home_formation: {
         type: Sequelize.STRING
       },
-      eventAwayFormation: {
+      event_away_formation: {
         type: Sequelize.STRING
       },
       createdAt: {

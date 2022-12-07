@@ -17,9 +17,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       country_key: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: 'Countries', key: 'country_key' }
+        type: Sequelize.INTEGER
       },
       league_logo: {
         type: Sequelize.STRING

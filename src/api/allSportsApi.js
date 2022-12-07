@@ -1,11 +1,10 @@
 const rp = require('request-promise');
 
 const allSportsUri = 'https://apiv2.allsportsapi.com/football/?'; //process.env.ALL_SPORTS_URI;
-const met = 'Countries'; //process.env.MET;
 const secretKey = '012a2301e93d06e63cbccdb3cb7b45e0388de8a92032906926a9fbc37ac62c67';//process.env.ALL_SPORTS_SECRET_KEY;
 const timeZone = 'America/Sao_Paulo'; //process.env.TIME_ZONE;
 
-async function load() {
+async function load(met, from, to, matchId) {
     const response = {
         data: [],
         error: null
@@ -16,6 +15,9 @@ async function load() {
         uri: `${allSportsUri}`,
         qs: {
             met,
+            from,
+            to,
+            matchId,
             APIkey: secretKey,
             timezone: timeZone,
         }

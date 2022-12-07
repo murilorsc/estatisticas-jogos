@@ -5,12 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Matches extends Model {
     static associate(models) {
-      Matches.belongsTo(models.Countries, { targetKey: 'country_key', foreignKey: 'event_country_key' });
-      Matches.belongsTo(models.Leagues, { targetKey: 'league_key', foreignKey: 'league_key' });
+      Matches.hasMany(models.Goalscorers, { foreignKey: 'match_id' });
       Matches.hasMany(models.Statistics, { foreignKey: 'match_id' });
     }
   };
   Matches.init({
+    event_key: DataTypes.INTEGER,
     event_date: DataTypes.DATEONLY,
     event_time: DataTypes.TIME,
     event_home_team: DataTypes.STRING,
