@@ -11,9 +11,8 @@ class EventController {
             const met = 'Fixtures';
             const from = req.query.from;
             const to = req.query.to;
-            const matchId = req.query.matchId;
 
-            const allEvents = await allSportsApi.load(met, from, to, matchId);
+            const allEvents = await allSportsApi.load(met, from, to);
 
             for (const event of allEvents.data) {
                 const conditions = {
@@ -45,13 +44,12 @@ class EventController {
                 //Goalscorers
                 for (const goalscorers of event.goalscorers) {
 
-                    console.log(goalscorers);
-
                     const conditions = {
-                        where: { match_Id: match[0].dataValues.id, time: statistics.time, home_assist: goalscorers.home_assist, away_scorer: goalscorers.away_scorer },
+                        where: { match_Id: match[0].dataValues.id, time: goalscorers.time, home_assist: goalscorers.home_assist, away_scorer: goalscorers.away_scorer },
                         defaults: {
                             match_id: match[0].dataValues.id,
                             time: goalscorers.time,
+                            home_scorer: goalscorers.home_scorer,
                             home_assist: goalscorers.home_assist,
                             score: goalscorers.score,
                             away_scorer: goalscorers.away_scorer,

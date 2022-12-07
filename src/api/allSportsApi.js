@@ -1,10 +1,11 @@
 const rp = require('request-promise');
+require('dotenv').config();
 
-const allSportsUri = 'https://apiv2.allsportsapi.com/football/?'; //process.env.ALL_SPORTS_URI;
-const secretKey = '012a2301e93d06e63cbccdb3cb7b45e0388de8a92032906926a9fbc37ac62c67';//process.env.ALL_SPORTS_SECRET_KEY;
-const timeZone = 'America/Sao_Paulo'; //process.env.TIME_ZONE;
+const allSportsUri = process.env.ALL_SPORTS_URI;
+const secretKey = process.env.ALL_SPORTS_SECRET_KEY;
+const timeZone = process.env.ALL_SPORTS_TIME_ZONE;
 
-async function load(met, from, to, matchId) {
+async function load(met, from, to) {
     const response = {
         data: [],
         error: null
@@ -17,7 +18,6 @@ async function load(met, from, to, matchId) {
             met,
             from,
             to,
-            matchId,
             APIkey: secretKey,
             timezone: timeZone,
         }
