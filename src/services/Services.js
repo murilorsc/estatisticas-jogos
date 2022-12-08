@@ -7,11 +7,19 @@ class Services {
     }
 
     async findAllRecords(order = []) {
-        return db[this.model].findAll({ order: [order] });
+        try {
+            return db[this.model].findAll({ order: [order] });
+        } catch (error) {
+            throw new Error(error.message);
+        }
     };
 
     async createRecord(conditions = {}) {
-        return db[this.model].findOrCreate(conditions);
+        try {
+            return db[this.model].findOrCreate(conditions);
+        } catch (error) {
+            throw new Error(error.message);
+        }
     };
 
 }

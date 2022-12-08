@@ -7,7 +7,11 @@ class CountriesServices extends Services {
     }
 
     async findByName(name) {
-        return db[this.model].findOne({ where: { country_name: name } });
+        try {
+            return db[this.model].findOne({ where: { country_name: name } });
+        } catch (error) {
+            throw new Error(error.message);
+        }
     };
 }
 

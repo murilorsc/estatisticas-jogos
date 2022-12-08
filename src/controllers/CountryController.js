@@ -1,11 +1,16 @@
+const moment = require('moment');
 const { CountriesServices } = require('../services/');
 const allSportsApi = require('../api/allSportsApi.js');
 const countriesServices = new CountriesServices();
 
+
 class CountryController {
 
-    static async loadNewsCountries(req, res) {
+    static async loadNewsCountries() {
         try {
+
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Loading countries....`);
+
             const met = 'Countries';
             const allCountries = await allSportsApi.load(met);
 
@@ -20,13 +25,14 @@ class CountryController {
                     }
 
                 };
-                countriesServices.createRecord(conditions);
+                await countriesServices.createRecord(conditions);
             }
 
-            return;
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Countries has been loaded`);
+
 
         } catch (error) {
-            return res.status(500).json(error.message);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading countries: + ${error}`);
         }
     }
 

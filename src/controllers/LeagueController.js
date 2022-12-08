@@ -1,11 +1,15 @@
+const moment = require('moment');
 const { LeaguesServices } = require('../services');
 const allSportsApi = require('../api/allSportsApi.js');
 const leaguesServices = new LeaguesServices();
 
 class LeagueController {
 
-    static async loadNewsLeagues(req, res) {
+    static async loadNewsLeagues() {
         try {
+
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Loading leagues....`);
+
             const met = 'Leagues';
             const allLeagues = await allSportsApi.load(met);
 
@@ -22,13 +26,15 @@ class LeagueController {
                     }
                 };
 
-                leaguesServices.createRecord(conditions);
+                await leaguesServices.createRecord(conditions);
             }
 
-            return;
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Leagues has been loaded`);
+
 
         } catch (error) {
-            return res.status(500).json(error.message);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading leagues: + ${error}`);
+
         }
     }
 

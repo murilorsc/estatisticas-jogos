@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { MatchesServices, StatisticsServices, GoalscorersServices } = require('../services');
 const allSportsApi = require('../api/allSportsApi.js');
 const matchesServices = new MatchesServices();
@@ -6,11 +7,13 @@ const goalscorersServices = new GoalscorersServices();
 
 class EventController {
 
-    static async loadNewsEvents(req, res) {
+    static async loadNewsEvents(from, to) {
         try {
+
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Loading events....`);
+
+
             const met = 'Fixtures';
-            const from = req.query.from;
-            const to = req.query.to;
 
             const allEvents = await allSportsApi.load(met, from, to);
 
@@ -59,7 +62,7 @@ class EventController {
                         }
                     };
 
-                    goalscorersServices.createRecord(conditions);
+                    await goalscorersServices.createRecord(conditions);
                 }
 
                 //Statistics
@@ -75,14 +78,16 @@ class EventController {
                         }
                     };
 
-                    statisticsServices.createRecord(conditions);
+                    await statisticsServices.createRecord(conditions);
                 }
             }
 
-            return;
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Events has been loaded`);
+
 
         } catch (error) {
-            return res.status(500).json(error.message);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading events: + ${error}`);
+
         }
     }
 
@@ -95,6 +100,16 @@ class EventController {
 
         } catch (error) {
             return res.status(500).json(error.message);
+        }
+    }
+
+    static async findMaxEventDate() {
+        try {
+            const maxDate = await matchesServices.findMaxEventDate();
+            return maxDate.dataValues.maxDate;
+
+        } catch (error) {
+            return 'Error to load last load date';
         }
     }
 

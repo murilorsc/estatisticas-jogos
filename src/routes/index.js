@@ -1,6 +1,5 @@
 const app = require('../../app.js');
 const bodyParser = require('body-parser');
-const history = require('./historiesRoute.js');
 const country = require('./countriesRoute.js');
 const league = require('./leaguesRoute.js');
 const event = require('./eventsRoute.js');
@@ -11,7 +10,6 @@ const routes = (app) => {
     }),
         app.use(
             bodyParser.json(),
-            history,
             country,
             league,
             event
