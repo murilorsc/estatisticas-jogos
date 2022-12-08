@@ -2,12 +2,14 @@ const CountryController = require('../controllers/CountryController.js');
 const LeagueController = require('../controllers/LeagueController.js');
 const EventController = require('../controllers/EventController.js');
 const moment = require('moment');
+const CronJob = require('cron').CronJob;
+
 
 const rp = require('request-promise');
 
-// new CronJob(process.env.CRON_TIME_LOAD, async () => {
-//     loadInitial();
-// }, null, true, 'America/Sao_Paulo');
+new CronJob(process.env.CRON_TIME_LOAD, async () => {
+    loadInitial();
+}, null, true, 'America/Sao_Paulo');
 
 async function loadInitial() {
 
@@ -25,6 +27,8 @@ async function loadInitial() {
 
         lasLoadDate = lasLoadDate.add(1, 'days');
     }
+
+    console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Initial load has been finished`);
 
 }
 

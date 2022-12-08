@@ -4,6 +4,5 @@ const EventController = require('../controllers/EventController.js');
 const router = Router();
 
 router
-    .get('/event', EventController.findAllEvents)
-    .get('/event/maxdate', EventController.findMaxEventDate);
+    .get('/event', EventController.findAllEvents);
 module.exports = router;
