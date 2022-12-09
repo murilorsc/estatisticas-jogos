@@ -8,38 +8,45 @@ class LeagueController {
     static async loadNewsLeagues() {
         try {
 
-            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Loading leagues....`);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Leagues has been started...`);
 
             const met = 'Leagues';
             const allLeagues = await allSportsApi.load(met);
 
             for (const league of allLeagues.data) {
 
-                const conditions = {
-                    where: { league_name: league.league_name },
-                    defaults: {
-                        league_key: league.league_key,
-                        league_name: league.league_name,
-                        country_key: league.country_key,
-                        league_logo: league.league_logo,
-                        country_logo: league.country_logo
-                    }
+                const condition = {
+                    where: { league_name: league.league_name }
                 };
 
-                await leaguesServices.createRecord(conditions);
+                const values = {
+                    league_key: league.league_key,
+                    league_name: league.league_name,
+                    country_key: league.country_key,
+                    league_logo: league.league_logo,
+                    country_logo: league.country_logo
+                };
+
+                const league = await leaguesServices.findOneRecord(condition);
+
+                if (!league) {
+                    await leaguesServices.createRecord(values);
+                } else {
+                    await leaguesServices.updateRecord(values, condition);
+                }
+
             }
 
-            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Leagues has been loaded`);
-
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Leagues has been finished.`);
 
         } catch (error) {
-            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading leagues: + ${error}`);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading leagues: ${error}`);
 
         }
     }
 
     static async findAllLeagues(req, res) {
-        const order = ['league_name'];
+        const order = { order: ['league_name'] };
 
         try {
             const leagues = await leaguesServices.findAllRecords(order);

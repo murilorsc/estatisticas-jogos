@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Statistics.init({
     match_id: DataTypes.INTEGER,
+    event_key: DataTypes.INTEGER,
     type: DataTypes.STRING,
     home: DataTypes.INTEGER,
     away: DataTypes.INTEGER

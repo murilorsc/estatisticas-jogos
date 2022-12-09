@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Goalscorers.init({
     match_id: DataTypes.INTEGER,
+    event_key: DataTypes.INTEGER,
     time: DataTypes.STRING,
     home_scorer: DataTypes.STRING,
     home_assist: DataTypes.STRING,

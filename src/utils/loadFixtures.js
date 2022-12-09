@@ -8,10 +8,12 @@ const CronJob = require('cron').CronJob;
 const rp = require('request-promise');
 
 new CronJob(process.env.CRON_TIME_LOAD, async () => {
-    loadInitial();
+    loadFixtures();
 }, null, true, 'America/Sao_Paulo');
 
-async function loadInitial() {
+async function loadFixtures() {
+
+    console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Fixtures has been started...`);
 
     await CountryController.loadNewsCountries();
     await LeagueController.loadNewsLeagues();
@@ -19,17 +21,18 @@ async function loadInitial() {
     const maxEventDate = await EventController.findMaxEventDate();
     let lasLoadDate = moment(maxEventDate || '2022-10-01');
     const today = moment();
+    const met = 'Fixtures';
 
     while (lasLoadDate.isSameOrBefore(today, 'days')) {
         console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Date load ${lasLoadDate.format('YYYY-MM-DD')}`);
 
-        await EventController.loadNewsEvents(lasLoadDate.format('YYYY-MM-DD'), lasLoadDate.format('YYYY-MM-DD'));
+        await EventController.loadFixtures(met, lasLoadDate.format('YYYY-MM-DD'), lasLoadDate.format('YYYY-MM-DD'));
 
         lasLoadDate = lasLoadDate.add(1, 'days');
     }
 
-    console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Initial load has been finished`);
+    console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Fixtures has been finished.`);
 
 }
 
-module.exports = loadInitial;
+module.exports = loadFixtures;

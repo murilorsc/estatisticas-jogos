@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = require('./src/routes');
-const loadInitial = require('./src/utils/loadInitial.js');
+const loadFixtures = require('./src/utils/loadFixtures.js');
+const loadLiveScores = require('./src/utils/loadLiveScores.js');
 
 
 
@@ -11,6 +12,6 @@ routes(app);
 
 app.listen(port, () => console.log(`SERVER HAS BEEN STARTED, PORT: ${port}`));
 
-loadInitial();
+loadFixtures();
 
 module.exports = app;

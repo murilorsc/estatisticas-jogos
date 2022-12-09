@@ -14,6 +14,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Matches', key: 'id' }
       },
+      event_key: {
+        type: Sequelize.INTEGER
+      },
       type: {
         type: Sequelize.STRING
       },

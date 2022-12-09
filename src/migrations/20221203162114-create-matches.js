@@ -51,16 +51,34 @@ module.exports = {
       league_season: {
         type: Sequelize.STRING
       },
+      event_live: {
+        type: Sequelize.STRING
+      },
       event_stadium: {
         type: Sequelize.STRING
       },
       event_referee: {
         type: Sequelize.STRING
       },
+      home_team_logo: {
+        type: Sequelize.STRING
+      },
+      away_team_logo: {
+        type: Sequelize.STRING
+      },
+      league_logo: {
+        type: Sequelize.STRING
+      },
+      country_logo: {
+        type: Sequelize.STRING
+      },
       event_home_formation: {
         type: Sequelize.STRING
       },
       event_away_formation: {
+        type: Sequelize.STRING
+      },
+      stage_name: {
         type: Sequelize.STRING
       },
       createdAt: {

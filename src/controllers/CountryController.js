@@ -9,35 +9,41 @@ class CountryController {
     static async loadNewsCountries() {
         try {
 
-            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Loading countries....`);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Countries has been started...`);
 
             const met = 'Countries';
             const allCountries = await allSportsApi.load(met);
 
             for (const country of allCountries.data) {
-                const conditions = {
-                    where: { country_name: country.country_name },
-                    defaults: {
-                        country_key: country.country_key,
-                        country_name: country.country_name,
-                        country_iso2: country.country_iso2,
-                        country_logo: country.country_logo
-                    }
-
+                const condition = {
+                    where: { country_name: country.country_name }
                 };
-                await countriesServices.createRecord(conditions);
+                const values = {
+                    country_key: country.country_key,
+                    country_name: country.country_name,
+                    country_iso2: country.country_iso2,
+                    country_logo: country.country_logo
+                };
+
+                const country = await countriesServices.findOneRecord(condition);
+
+                if (!country) {
+                    await countriesServices.createRecord(values);
+                } else {
+                    await countriesServices.updateRecord(values, condition);
+                }
+
             }
 
-            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Countries has been loaded`);
-
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Countries has been finished.`);
 
         } catch (error) {
-            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading countries: + ${error}`);
+            console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Error loading countries: ${error}`);
         }
     }
 
     static async findAllCountries(req, res) {
-        const order = ['country_name'];
+        const order = { order: ['country_name'] };
 
         try {
             const countries = await countriesServices.findAllRecords(order);
