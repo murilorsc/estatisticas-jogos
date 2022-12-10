@@ -7,7 +7,7 @@ const CronJob = require('cron').CronJob;
 
 const rp = require('request-promise');
 
-new CronJob(process.env.CRON_TIME_LOAD, async () => {
+new CronJob(process.env.CRON_TIME_FIXTURES, async () => {
     loadFixtures();
 }, null, true, 'America/Sao_Paulo');
 
@@ -26,7 +26,7 @@ async function loadFixtures() {
     while (lasLoadDate.isSameOrBefore(today, 'days')) {
         console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Date load ${lasLoadDate.format('YYYY-MM-DD')}`);
 
-        await EventController.loadFixtures(met, lasLoadDate.format('YYYY-MM-DD'), lasLoadDate.format('YYYY-MM-DD'));
+        await EventController.loadEvents(met, lasLoadDate.format('YYYY-MM-DD'), lasLoadDate.format('YYYY-MM-DD'));
 
         lasLoadDate = lasLoadDate.add(1, 'days');
     }

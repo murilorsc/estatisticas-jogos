@@ -14,25 +14,28 @@ class CountryController {
             const met = 'Countries';
             const allCountries = await allSportsApi.load(met);
 
-            for (const country of allCountries.data) {
-                const condition = {
-                    where: { country_name: country.country_name }
-                };
-                const values = {
-                    country_key: country.country_key,
-                    country_name: country.country_name,
-                    country_iso2: country.country_iso2,
-                    country_logo: country.country_logo
-                };
+            if (allCountries) {
 
-                const country = await countriesServices.findOneRecord(condition);
+                for (const country of allCountries.data) {
+                    const condition = {
+                        where: { country_name: country.country_name }
+                    };
+                    const values = {
+                        country_key: country.country_key,
+                        country_name: country.country_name,
+                        country_iso2: country.country_iso2,
+                        country_logo: country.country_logo
+                    };
 
-                if (!country) {
-                    await countriesServices.createRecord(values);
-                } else {
-                    await countriesServices.updateRecord(values, condition);
+                    const countryRecorded = await countriesServices.findOneRecord(condition);
+
+                    if (!countryRecorded) {
+                        await countriesServices.createRecord(values);
+                    } else {
+                        await countriesServices.updateRecord(values, condition);
+                    }
+
                 }
-
             }
 
             console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Countries has been finished.`);

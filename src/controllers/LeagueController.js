@@ -13,28 +13,31 @@ class LeagueController {
             const met = 'Leagues';
             const allLeagues = await allSportsApi.load(met);
 
-            for (const league of allLeagues.data) {
+            if (allLeagues) {
 
-                const condition = {
-                    where: { league_name: league.league_name }
-                };
+                for (const league of allLeagues.data) {
 
-                const values = {
-                    league_key: league.league_key,
-                    league_name: league.league_name,
-                    country_key: league.country_key,
-                    league_logo: league.league_logo,
-                    country_logo: league.country_logo
-                };
+                    const condition = {
+                        where: { league_name: league.league_name }
+                    };
 
-                const league = await leaguesServices.findOneRecord(condition);
+                    const values = {
+                        league_key: league.league_key,
+                        league_name: league.league_name,
+                        country_key: league.country_key,
+                        league_logo: league.league_logo,
+                        country_logo: league.country_logo
+                    };
 
-                if (!league) {
-                    await leaguesServices.createRecord(values);
-                } else {
-                    await leaguesServices.updateRecord(values, condition);
+                    const leagueRecorded = await leaguesServices.findOneRecord(condition);
+
+                    if (!leagueRecorded) {
+                        await leaguesServices.createRecord(values);
+                    } else {
+                        await leaguesServices.updateRecord(values, condition);
+                    }
+
                 }
-
             }
 
             console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} - Load Leagues has been finished.`);
